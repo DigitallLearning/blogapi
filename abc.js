@@ -16,14 +16,17 @@ const storage = multer.diskStorage({
       cb(null,file.originalname);
     }
   });
-  const upload = multer({ storage: storage }).single("image");
+  const upload = multer({ storage: storage }).single("bimage");
 
   app.post("/",(req,resp)=>
   {
      upload(req,resp,(err)=>{
-             const newImage=new ImageModel({     
-                 name:req.body.name,
-                 image:"https://blog-cz01.onrender.com/uploads/"+req.file.filename
+             const newImage=new ImageModel({  
+                 bid:req.body.bid,   
+                 bname:req.body.bname,
+                 bdesc:req.body.bdesc,
+                 bcat:req.body.bcat,
+                 bimage:"https://blog-cz01.onrender.com/uploads/"+req.file.filename
              })
               newImage.save()
               resp.send("File Uploaded")
